@@ -47,7 +47,7 @@
             <div class="card text-bg-success mb-3">
                 <div class="card-body">
                     <h5>รายรับรวม</h5>
-                    <h2 id="income">0</h2>
+                    <h2 id="income">กำลังโหลดข้อมูล...</h2>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
             <div class="card text-bg-danger mb-3">
                 <div class="card-body">
                     <h5>รายจ่ายรวม</h5>
-                    <h2 id="expense">0</h2>
+                    <h2 id="expense">กำลังโหลดข้อมูล...</h2>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
             <div class="card text-bg-primary mb-3">
                 <div class="card-body">
                     <h5>กำไรสุทธิ</h5>
-                    <h2 id="profit">0</h2>
+                    <h2 id="profit">กำลังโหลดข้อมูล...</h2>
                 </div>
             </div>
 
@@ -81,7 +81,11 @@
 
         <h4>เจ้าของสวน</h4>
 
-        <ul id="ownerList"></ul>
+        <ul id="ownerList">
+
+    <li>กำลังโหลดข้อมูล...</li>
+
+</ul>
 
     </div>
 
@@ -172,6 +176,29 @@ else {
 }
 
 async function loadReport() {
+
+
+document.getElementById(
+    "income"
+).innerText =
+    "กำลังโหลด...";
+
+document.getElementById(
+    "expense"
+).innerText =
+    "กำลังโหลด...";
+
+document.getElementById(
+    "profit"
+).innerText =
+    "กำลังโหลด...";
+
+document.getElementById(
+    "ownerList"
+).innerHTML =
+    "<li>กำลังโหลดข้อมูล...</li>";
+
+
 
     const farmId =
         document.getElementById("farmId").value;
