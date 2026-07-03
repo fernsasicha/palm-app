@@ -45,7 +45,7 @@
                 <div class="card text-bg-success">
                     <div class="card-body">
                         <h5>รายรับรวม</h5>
-                        <h2 id="income">0</h2>
+                        <h2 id="income">กำลังโหลดข้อมูล...</h2>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                 <div class="card text-bg-danger">
                     <div class="card-body">
                         <h5>รายจ่ายรวม</h5>
-                        <h2 id="expense">0</h2>
+                        <h2 id="expense">กำลังโหลดข้อมูล...</h2>
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                 <div class="card text-bg-primary">
                     <div class="card-body">
                         <h5>กำไรสุทธิ</h5>
-                        <h2 id="profit">0</h2>
+                        <h2 id="profit">กำลังโหลดข้อมูล...</h2>
                     </div>
                 </div>
 
@@ -144,11 +144,21 @@ fetch(dashboardUrl)
     })
     .catch(error => {
 
-        console.log(error);
+    console.log(error);
 
-        alert("เชื่อม API ไม่สำเร็จ");
+    document.getElementById(
+        "income"
+    ).innerText = "ผิดพลาด";
 
-    });
+    document.getElementById(
+        "expense"
+    ).innerText = "ผิดพลาด";
+
+    document.getElementById(
+        "profit"
+    ).innerText = "ผิดพลาด";
+
+});
 
 
 function logout() {

@@ -21,8 +21,8 @@
         <a href="income.html" class="btn btn-success">เพิ่มรายรับ</a>
         <a href="expense.html" class="btn btn-danger">เพิ่มรายจ่าย</a>
         <a href="history.html" class="btn btn-secondary">ประวัติ</a>
-        <a href="farm.html" class="btn btn-warning">สวน</a>
-        <a href="owner.html" class="btn btn-info">เจ้าของ</a>
+        <a id="farmMenu" href="farm.html" class="btn btn-warning">สวน</a>
+	<a id="ownerMenu" href="owner.html" class="btn btn-info">เจ้าของ</a>
 	<a href="farm-report.html" class="btn btn-success">รายงานสวน</a>
 	<a href="https://palm-app-jt0i.onrender.com/export-report"class="btn btn-primary">📊 ดาวน์โหลดรายงานทั้งหมด</a>
 
@@ -76,6 +76,33 @@ if (!localStorage.getItem("userId")) {
 }
 
 
+const role =
+    localStorage.getItem("role");
+
+
+
+document.getElementById(
+    "welcome"
+).innerText =
+    "สวัสดี " +
+    localStorage.getItem(
+        "fullName"
+    );
+
+
+
+if (role === "owner") {
+
+    document.getElementById(
+        "farmMenu"
+    ).style.display = "none";
+
+    document.getElementById(
+        "ownerMenu"
+    ).style.display = "none";
+
+}
+
 
 
 // ✅ function formatDate(dateString)
@@ -101,6 +128,29 @@ function formatDate(dateString) {
 
 // ✅ function loadIncome()
 async function loadIncome() {
+
+
+document.getElementById(
+    "incomeTable"
+).innerHTML =
+
+`
+<tr>
+    <td colspan="6" class="text-center">
+
+        <div
+            class="spinner-border spinner-border-sm"
+            role="status">
+        </div>
+
+        กำลังโหลดข้อมูล...
+
+    </td>
+</tr>
+`;
+
+
+
 
     const role =
     localStorage.getItem("role");
@@ -135,6 +185,9 @@ else {
         await response.json();
 
 }
+
+
+
 
     let html = "";
 
@@ -250,6 +303,23 @@ async function editIncome(id, oldType) {
 // ✅ function loadExpense
 async function loadExpense() {
 
+
+document.getElementById(
+    "expenseTable"
+).innerHTML =
+
+`
+<tr>
+    <td colspan="6" class="text-center">
+
+        กำลังโหลดข้อมูล...
+
+    </td>
+</tr>
+`;
+
+
+
     const role =
     localStorage.getItem("role");
 
@@ -283,6 +353,8 @@ else {
         await response.json();
 
 }
+
+
 
     let html = "";
 
