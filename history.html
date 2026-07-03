@@ -79,18 +79,6 @@ if (!localStorage.getItem("userId")) {
 const role =
     localStorage.getItem("role");
 
-
-
-document.getElementById(
-    "welcome"
-).innerText =
-    "สวัสดี " +
-    localStorage.getItem(
-        "fullName"
-    );
-
-
-
 if (role === "owner") {
 
     document.getElementById(

@@ -21,8 +21,8 @@
         <a href="income.html" class="btn btn-success">เพิ่มรายรับ</a>
         <a href="expense.html" class="btn btn-danger">เพิ่มรายจ่าย</a>
         <a href="history.html" class="btn btn-secondary">ประวัติ</a>
-        <a href="farm.html" class="btn btn-warning">สวน</a>
-        <a href="owner.html" class="btn btn-info">เจ้าของ</a>
+        <a id="farmMenu" href="farm.html" class="btn btn-warning">สวน</a>
+	<a id="ownerMenu" href="owner.html" class="btn btn-info">เจ้าของ</a>
 	<a href="farm-report.html" class="btn btn-success">รายงานสวน</a>
 
 </div>
@@ -75,6 +75,23 @@ if (!localStorage.getItem("userId")) {
         "login.html";
 
 }
+
+
+const role =
+    localStorage.getItem("role");
+
+if (role === "owner") {
+
+    document.getElementById(
+        "farmMenu"
+    ).style.display = "none";
+
+    document.getElementById(
+        "ownerMenu"
+    ).style.display = "none";
+
+}
+
 
 
 
