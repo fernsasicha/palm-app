@@ -7,19 +7,33 @@ const cloudinary = require("cloudinary").v2;
 const multer = require("multer");
 const cors = require("cors");
 const ExcelJS = require("exceljs");
+require("dotenv").config();
 
 
-
-mongoose.connect("mongodb+srv://palmappadmin_db_user:Palm2026@cluster0.hdwwyrz.mongodb.net/palmdb?retryWrites=true&w=majority")
-  .then(() => console.log("✅ เชื่อม MongoDB สำเร็จ"))
-  .catch(err => console.log(err));
+// ✅  mongoose
+mongoose.connect(
+  process.env.MONGODB_URI
+)
+.then(() =>
+  console.log("✅ เชื่อม MongoDB สำเร็จ")
+)
+.catch(err =>
+  console.log(err)
+);
 
 
 // ✅  Cloudinary Config
 cloudinary.config({
-  cloud_name: "t14h1yhx",
-  api_key: "117282587315936",
-  api_secret: "NHd--dngs5jk6VhIARM-KS_tD7E"
+
+  cloud_name:
+    process.env.CLOUDINARY_CLOUD_NAME,
+
+  api_key:
+    process.env.CLOUDINARY_API_KEY,
+
+  api_secret:
+    process.env.CLOUDINARY_API_SECRET
+
 });
 
 // ✅  multer
@@ -982,19 +996,6 @@ app.put("/reset-password", async (req, res) => {
     });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
