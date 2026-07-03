@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายงานรายสวน</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h1>📊 รายงานรายสวน</h1>
+
+    <div class="mb-4">
+
+        <a href="dashboard.html" class="btn btn-primary">Dashboard</a>
+        <a href="income.html" class="btn btn-success">รายรับ</a>
+        <a href="expense.html" class="btn btn-danger">รายจ่าย</a>
+        <a href="history.html" class="btn btn-secondary">ประวัติ</a>
+        <a id="farmMenu" href="farm.html" class="btn btn-warning">สวน</a>
+	<a id="ownerMenu" href="owner.html" class="btn btn-info">เจ้าของ</a>
+        <a href="farm-owner.html" class="btn btn-dark">ผูกเจ้าของ</a>
+
+    </div>
+
+    <div class="card p-4 mb-4">
+
+        <label>เลือกสวน</label>
+
+        <select id="farmId" class="form-control mb-3">
+        </select>
+
+        <button class="btn btn-primary" onclick="loadReport()">
+            ดูรายงาน
+        </button>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <div class="card text-bg-success mb-3">
+                <div class="card-body">
+                    <h5>รายรับรวม</h5>
+                    <h2 id="income">0</h2>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card text-bg-danger mb-3">
+                <div class="card-body">
+                    <h5>รายจ่ายรวม</h5>
+                    <h2 id="expense">0</h2>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card text-bg-primary mb-3">
+                <div class="card-body">
+                    <h5>กำไรสุทธิ</h5>
+                    <h2 id="profit">0</h2>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card p-4">
+
+        <h4>เจ้าของสวน</h4>
+
+        <ul id="ownerList"></ul>
+
+    </div>
+
+</div>
+
+<script>
+
+
+if (!localStorage.getItem("userId")) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+const role =
+    localStorage.getItem(
+        "role"
+    );
+
+if (role === "owner") {
+
+    document.getElementById(
+        "farmMenu"
+    ).style.display = "none";
+
+    document.getElementById(
+        "ownerMenu"
+    ).style.display = "none";
+
+}
+
+
+
+async function loadFarmDropdown() {
+
+    const role =
+    localStorage.getItem(
+        "role"
+    );
+
+let farms;
+
+if (role === "owner") {
+
+    const ownerId =
+        localStorage.getItem(
+            "ownerId"
+        );
+
+    const response =
+        await fetch(
+            `https://palm-app-jt0i.onrender.com/owner-farm-list/${ownerId}`
+        );
+
+    farms =
+        await response.json();
+
+}
+else {
+
+    const response =
+        await fetch(
+            "https://palm-app-jt0i.onrender.com/farm"
+        );
+
+    farms =
+        await response.json();
+
+}
+
+    let html = "";
+
+    farms.forEach(farm => {
+
+        html += `
+            <option value="${farm._id}">
+                ${farm.name}
+            </option>
+        `;
+
+    });
+
+    document.getElementById("farmId").innerHTML =
+        html;
+
+}
+
+async function loadReport() {
+
+    const farmId =
+        document.getElementById("farmId").value;
+
+    const response =
+        await fetch(
+            `https://palm-app-jt0i.onrender.com/farm-report/${farmId}`
+        );
+
+    const data =
+        await response.json();
+
+    	document.getElementById("income").innerText =
+   	 data.totalIncome.toLocaleString();
+
+	document.getElementById("expense").innerText =
+    	data.totalExpense.toLocaleString();
+
+	document.getElementById("profit").innerText =
+    	data.profit.toLocaleString();
+    let owners = "";
+
+    data.owners.forEach(owner => {
+
+        owners += `
+            <li>
+                ${owner.name}
+		(${owner.percent}%)
+            </li>
+        `;
+
+    });
+
+    document.getElementById("ownerList").innerHTML =
+        owners;
+
+}
+
+loadFarmDropdown();
+
+</script>
+
+</body>
+
+</html>
