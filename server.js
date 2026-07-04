@@ -666,6 +666,12 @@ app.get("/expense/:id", async (req, res) => {
 // ✅ API สมัครสมาชิก
 app.post("/register", async (req, res) => {
 
+
+console.log("REGISTER START");
+console.log(req.body);
+
+
+
     const {
         fullName,
         phone,
@@ -717,6 +723,9 @@ app.post("/register", async (req, res) => {
         });
 
     await newUser.save();
+
+
+console.log("REGISTER SUCCESS");
 
     res.json({
 
