@@ -168,49 +168,58 @@ async function register() {
     button.innerText =
         "กำลังสมัคร...";
 
-    const response =
-        await fetch(
-            "https://palm-app-jt0i.onrender.com/register",
-            {
-                method: "POST",
+    try {
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body:
-                    JSON.stringify({
-
+        const response =
+            await fetch(
+                "https://palm-app-jt0i.onrender.com/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
                         fullName,
-
                         phone,
-
                         password,
-
                         citizenId
-
                     })
+                }
+            );
 
-            }
+        const result =
+            await response.json();
+
+        button.disabled = false;
+
+        button.innerText =
+            "สมัครสมาชิก";
+
+        alert(
+            result.message
         );
 
-    const result =
-        await response.json();
+        if (response.ok) {
 
-    button.disabled = false;
+            window.location.href =
+                "login.html";
 
-    button.innerText =
-        "สมัครสมาชิก";
+        }
 
-    alert(
-        result.message
-    );
+    }
+    catch (error) {
 
-    if (response.ok) {
+        console.log(error);
 
-        window.location.href =
-            "login.html";
+        button.disabled = false;
+
+        button.innerText =
+            "สมัครสมาชิก";
+
+        alert(
+            "เชื่อมต่อเซิร์ฟเวอร์ไม่สำเร็จ"
+        );
 
     }
 
