@@ -188,12 +188,10 @@ async function register() {
                 }
             );
 
-        const text =
-    await response.text();
+        const result =
+    await response.json();
 
-console.log(text);
-
-alert(text);
+alert(result.message);
 
         button.disabled = false;
 
