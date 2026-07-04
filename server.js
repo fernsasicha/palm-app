@@ -1,5 +1,3 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 // require ก่อน
 const express = require("express");
 const mongoose = require("mongoose");
