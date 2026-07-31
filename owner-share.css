@@ -1,0 +1,42 @@
+body{
+    background:#f6f7fb;
+}
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+.stat-title{
+    color:#666;
+    font-size:14px;
+}
+
+.stat-value{
+    font-size:32px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.owner-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    margin-top:15px;
+    box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+.share-value{
+    font-size:28px;
+    font-weight:bold;
+    color:#10b981;
+}
