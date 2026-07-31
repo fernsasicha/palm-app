@@ -1,0 +1,82 @@
+body{
+    background:#f6f7fb;
+    font-family:'Segoe UI',sans-serif;
+}
+
+.container{
+    max-width:500px;
+}
+
+.top-card{
+    background:white;
+    border-radius:24px;
+    padding:24px;
+    margin-bottom:20px;
+    box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+.summary-card{
+    background:white;
+    border-radius:24px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+.summary-title{
+    color:#666;
+    font-size:14px;
+}
+
+.summary-value{
+    font-size:32px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.income{
+    color:#00c389;
+}
+
+.expense{
+    color:#ff2f6d;
+}
+
+.profit{
+    color:#4f66ff;
+}
+
+.menu-btn{
+    width:100%;
+    margin-bottom:12px;
+    padding:14px;
+    border:none;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.btn-income{
+    background:#00d09e;
+    color:white;
+}
+
+.btn-expense{
+    background:#ff2f6d;
+    color:white;
+}
+
+.btn-history{
+    background:white;
+    color:#333;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.btn-report{
+    background:#4f66ff;
+    color:white;
+}
+
+.logout-btn{
+    background:#111;
+    color:white;
+}
