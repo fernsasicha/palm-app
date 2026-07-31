@@ -1196,9 +1196,98 @@ app.get(
 
 
 
+// ✅ API ประวัติส่วนแบ่งย้อนหลัง
 
+app.get(
+    "/owner-share-history/:ownerId",
+    async (req, res) => {
 
+        const ownerId =
+            req.params.ownerId;
 
+        const farmOwners =
+            await FarmOwner.find({
+                ownerId
+            });
+
+        const result = [];
+
+        for (const farmOwner of farmOwners) {
+
+            const farmId =
+                farmOwner.farmId;
+
+            const incomes =
+                await Income.find({
+                    farmId
+                });
+
+            const rounds =
+                [...new Set(
+                    incomes.map(
+                        item => item.round
+                    )
+                )];
+
+            for (const round of rounds) {
+
+                const roundIncomes =
+                    await Income.find({
+                        farmId,
+                        round
+                    });
+
+                const roundExpenses =
+                    await Expense.find({
+                        farmId,
+                        round
+                    });
+
+                const totalIncome =
+                    roundIncomes.reduce(
+                        (sum, item) =>
+                            sum + item.total,
+                        0
+                    );
+
+                const totalExpense =
+                    roundExpenses.reduce(
+                        (sum, item) =>
+                            sum + item.total,
+                        0
+                    );
+
+                const profit =
+                    totalIncome -
+                    totalExpense;
+
+                result.push({
+
+                    round,
+
+                    profit,
+
+                    share:
+                        profit *
+                        (
+                            farmOwner.percent /
+                            100
+                        )
+
+                });
+
+            }
+
+        }
+
+        result.sort(
+            (a, b) =>
+                b.round - a.round
+        );
+
+        res.json(result);
+
+});
 
 
 
