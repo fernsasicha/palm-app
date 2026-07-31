@@ -105,6 +105,17 @@ const User = mongoose.model("User", {
 
 });
 
+// ✅  Closed Round
+
+const ClosedRound = mongoose.model(
+    "ClosedRound",
+    {
+        farmId: String,
+        round: Number,
+        closedDate: Date
+    }
+);
+
 
 
 
@@ -147,6 +158,28 @@ const {
   receiptImage
 });
 
+const closed =
+    await ClosedRound.findOne({
+
+        farmId,
+
+        round
+
+    });
+
+if (closed) {
+
+    return res.status(400)
+    .json({
+
+        message:
+        "งวดนี้ปิดแล้ว"
+
+    });
+
+}
+
+
   await newIncome.save();
 
   res.json({
@@ -179,6 +212,28 @@ app.post("/expense", async (req, res) => {
   total,
   receiptImage
 });
+
+
+const closed =
+    await ClosedRound.findOne({
+
+        farmId,
+
+        round
+
+    });
+
+if (closed) {
+
+    return res.status(400)
+    .json({
+
+        message:
+        "งวดนี้ปิดแล้ว"
+
+    });
+
+}
 
 
   await newExpense.save();
@@ -1288,6 +1343,85 @@ app.get(
         res.json(result);
 
 });
+
+
+// ✅ API ปิดงวด
+app.post(
+    "/close-round",
+    async (req, res) => {
+
+        const {
+            farmId,
+            round
+        } = req.body;
+
+        const exists =
+            await ClosedRound.findOne({
+                farmId,
+                round
+            });
+
+        if (exists) {
+
+            return res.json({
+                message:
+                    "ปิดงวดแล้ว"
+            });
+
+        }
+
+        const closedRound =
+            new ClosedRound({
+
+                farmId,
+                round,
+
+                closedDate:
+                    new Date()
+
+            });
+
+        await closedRound.save();
+
+        res.json({
+
+            success: true
+
+        });
+
+});
+
+
+
+// ✅ API ตรวจสอบงวด
+
+app.get(
+    "/check-round/:farmId/:round",
+    async (req, res) => {
+
+        const closed =
+            await ClosedRound.findOne({
+
+                farmId:
+                    req.params.farmId,
+
+                round:
+                    Number(
+                        req.params.round
+                    )
+
+            });
+
+        res.json({
+
+            closed:
+                !!closed
+
+        });
+
+});
+
+
 
 
 
