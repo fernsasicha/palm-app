@@ -1099,6 +1099,105 @@ app.get(
 
 
 
+// ✅ API หา "งวดล่าสุด"
+
+app.get(
+    "/owner-latest-share/:ownerId",
+    async (req, res) => {
+
+        const ownerId =
+            req.params.ownerId;
+
+        const farmOwners =
+            await FarmOwner.find({
+                ownerId
+            });
+
+        if (farmOwners.length === 0) {
+
+            return res.json({
+                share: 0,
+                round: "-"
+            });
+
+        }
+
+        let latestShare = 0;
+        let latestRound = 0;
+
+        for (const farmOwner of farmOwners) {
+
+            const farmId =
+                farmOwner.farmId;
+
+            const incomes =
+                await Income.find({
+                    farmId
+                });
+
+            const rounds =
+                incomes
+                .map(
+                    item => item.round || 0
+                );
+
+            const maxRound =
+                Math.max(...rounds, 0);
+
+            const roundIncomes =
+                await Income.find({
+                    farmId,
+                    round: maxRound
+                });
+
+            const roundExpenses =
+                await Expense.find({
+                    farmId,
+                    round: maxRound
+                });
+
+            const totalIncome =
+                roundIncomes.reduce(
+                    (sum, item) =>
+                        sum + item.total,
+                    0
+                );
+
+            const totalExpense =
+                roundExpenses.reduce(
+                    (sum, item) =>
+                        sum + item.total,
+                    0
+                );
+
+            const profit =
+                totalIncome - totalExpense;
+
+            latestShare =
+                profit *
+                (farmOwner.percent / 100);
+
+            latestRound =
+                maxRound;
+
+        }
+
+        res.json({
+
+            share:
+                latestShare,
+
+            round:
+                latestRound
+
+        });
+
+});
+
+
+
+
+
 
 
 
