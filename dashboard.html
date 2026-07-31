@@ -13,6 +13,21 @@
 
 <body>
 
+<div class="mobile-header">
+
+    <button
+        class="hamburger"
+        onclick="toggleMenu()">
+
+        ☰
+
+    </button>
+
+    <h3>🌴 Palm App</h3>
+
+</div>
+
+
 <div class="layout">
 
     <div class="sidebar">
@@ -29,7 +44,7 @@
             💰 เพิ่มรายรับ
         </a>
 
-        " class="menu-item">
+        <a href="expense.html" class="menu-item">
             💸 เพิ่มรายจ่าย
         </a>
 
@@ -59,8 +74,7 @@
 
         </a>
 
-        #            onclick="logout()"
-            class="menu-item">
+        <a onclick="logout()" class="menu-item">
 
             🚪 Logout
 
@@ -264,7 +278,14 @@ function logout() {
 
 }
 
+function toggleMenu() {
 
+    document
+        .querySelector(".sidebar")
+        .classList
+        .toggle("active");
+
+}
 
     </script>
 
