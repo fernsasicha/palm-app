@@ -145,7 +145,22 @@ const {
   receiptImage
 } = req.body;
 
-  const total = weight * price;
+const total = weight * price;
+
+const closed =
+    await ClosedRound.findOne({
+        farmId,
+        round
+    });
+
+if (closed) {
+
+    return res.status(400).json({
+        message: "งวดนี้ปิดแล้ว"
+    });
+
+}
+
 
   const newIncome = new Income({
   farmId,
@@ -157,25 +172,6 @@ const {
   total,
   receiptImage
 });
-
-const closed =
-    await ClosedRound.findOne({
-
-        farmId,
-
-        round
-
-    });
-
-if (closed) {
-
-    return res.status(400)
-    .json({
-
-        message:
-        "งวดนี้ปิดแล้ว"
-
-    });
 
 }
 
