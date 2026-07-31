@@ -46,23 +46,27 @@ const Income = mongoose.model("Income", {
   farmId: String,
   type: String,
   date: Date,
+  round: Number,
   weight: Number,
   price: Number,
   total: Number,
   receiptImage: String
 });
 
+
 // ✅  Expense Model
 const Expense = mongoose.model("Expense", {
   farmId: String,
   type: String,
   date: Date,
+  round: Number,
   item: String,
   quantity: Number,
   price: Number,
   total: Number,
   receiptImage: String
 });
+
 
 // ✅  Farm Model
 const Farm = mongoose.model("Farm", {
@@ -125,6 +129,7 @@ const {
   farmId,
   type,
   date,
+  round,
   weight,
   price,
   receiptImage
@@ -136,6 +141,7 @@ const {
   farmId,
   type,
   date,
+  round,
   weight,
   price,
   total,
@@ -156,6 +162,7 @@ app.post("/expense", async (req, res) => {
   farmId,
   type,
   date,
+  round,
   item,
   quantity,
   price,
@@ -168,12 +175,14 @@ app.post("/expense", async (req, res) => {
   farmId,
   type,
   date,
+  round,
   item,
   quantity,
   price,
   total,
   receiptImage
 });
+
 
   await newExpense.save();
 
