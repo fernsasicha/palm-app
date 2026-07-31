@@ -1013,6 +1013,96 @@ app.put("/reset-password", async (req, res) => {
 
 
 
+// ✅ API คำนวณส่วนแบ่งเจ้าของสวนตามงวด
+
+app.get(
+  "/owner-share/:farmId/:round",
+  async (req, res) => {
+
+    const {
+      farmId,
+      round
+    } = req.params;
+
+    const incomes =
+      await Income.find({
+        farmId,
+        round: Number(round)
+      });
+
+    const expenses =
+      await Expense.find({
+        farmId,
+        round: Number(round)
+      });
+
+    const totalIncome =
+      incomes.reduce(
+        (sum, item) => sum + item.total,
+        0
+      );
+
+    const totalExpense =
+      expenses.reduce(
+        (sum, item) => sum + item.total,
+        0
+      );
+
+    const profit =
+      totalIncome - totalExpense;
+
+    const farmOwners =
+      await FarmOwner.find({
+        farmId
+      });
+
+    const owners = [];
+
+    for (const farmOwner of farmOwners) {
+
+      const owner =
+        await Owner.findById(
+          farmOwner.ownerId
+        );
+
+      owners.push({
+
+        ownerId:
+          farmOwner.ownerId,
+
+        name:
+          owner?.name || "ไม่พบชื่อ",
+
+        percent:
+          farmOwner.percent,
+
+        share:
+          profit *
+          (farmOwner.percent / 100)
+
+      });
+
+    }
+
+    res.json({
+      farmId,
+      round: Number(round),
+
+      totalIncome,
+      totalExpense,
+      profit,
+
+      owners
+    });
+
+});
+
+
+
+
+
+
+
 
 // ✅ listen ไว้ล่างสุด
 const PORT =
