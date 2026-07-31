@@ -163,6 +163,8 @@ async function loadShare() {
 
     `;
 
+
+html += `<div class="owner-grid">`;
     data.owners.forEach(owner => {
 
         html += `
@@ -187,8 +189,10 @@ async function loadShare() {
 
     });
 
-    document.getElementById("result").innerHTML =
-        html;
+html += `</div>`;
+
+document.getElementById("result").innerHTML =
+    html;
 
 }
 
