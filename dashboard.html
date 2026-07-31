@@ -14,36 +14,85 @@
 
     <div class="container mt-5">
 
-        <h1 class="mb-4">🌴 Palm App Dashboard</h1>
-	<h5 id="welcome" class="mb-3"></h5>
+        <div class="dashboard-header">
+
+    <h1>🌴 Palm App</h1>
+    <h5 id="welcome"></h5>
+
+</div>
 
 
-<div class="mb-4">
+<div class="menu-grid">
 
-   	<a href="dashboard.html" class="btn btn-primary">Dashboard</a>
-        <a href="income.html" class="btn btn-success">เพิ่มรายรับ</a>
-        <a href="expense.html" class="btn btn-danger">เพิ่มรายจ่าย</a>
-        <a href="history.html" class="btn btn-secondary">ประวัติ</a>
-        <a id="farmMenu" href="farm.html" class="btn btn-warning">สวน</a>
-	<a id="ownerMenu" href="owner.html" class="btn btn-info">เจ้าของ</a>
-	<a href="farm-report.html" class="btn btn-success">รายงานสวน</a>
-	
+    <a href="income.html" class="menu-card">
+
+        <div class="menu-icon">➕</div>
+
+        เพิ่มรายรับ
+
+    </a>
+
+    <a href="expense.html" class="menu-card">
+
+        <div class="menu-icon">➖</div>
+
+        เพิ่มรายจ่าย
+
+    </a>
+
+    <a href="history.html" class="menu-card">
+
+        <div class="menu-icon">📋</div>
+
+        ประวัติ
+
+    </a>
+
+    <a href="farm-report.html" class="menu-card">
+
+        <div class="menu-icon">📊</div>
+
+        รายงานสวน
+
+    </a>
+
+    <a
+        id="farmMenu"
+        href="farm.html"
+        class="menu-card">
+
+        <div class="menu-icon">🌴</div>
+
+        สวน
+
+    </a>
+
+    <a
+        id="ownerMenu"
+        href="owner.html"
+        class="menu-card">
+
+        <div class="menu-icon">👤</div>
+
+        เจ้าของ
+
+    </a>
+
+</div>
+
 <button
-    class="btn btn-dark"
+    class="logout-card"
     onclick="logout()">
 
     Logout
 
 </button>
 
-
-</div>
-
 <div class="row">
 
             <div class="col-md-4 mb-3">
 
-                <div class="card text-bg-success">
+                <div class="card summary-card text-bg-success">
                     <div class="card-body">
                         <h5>รายรับรวม</h5>
                         <h2 id="income">กำลังโหลดข้อมูล...</h2>
@@ -54,7 +103,7 @@
 
             <div class="col-md-4 mb-3">
 
-                <div class="card text-bg-danger">
+                <div class="card summary-card text-bg-danger">
                     <div class="card-body">
                         <h5>รายจ่ายรวม</h5>
                         <h2 id="expense">กำลังโหลดข้อมูล...</h2>
@@ -65,7 +114,7 @@
 
             <div class="col-md-4 mb-3">
 
-                <div class="card text-bg-primary">
+                <div class="card summary-card text-bg-primary">
                     <div class="card-body">
                         <h5>กำไรสุทธิ</h5>
                         <h2 id="profit">กำลังโหลดข้อมูล...</h2>
