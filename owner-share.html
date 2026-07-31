@@ -18,9 +18,11 @@ owner-share.css
 
 <div class="container mt-4">
 
-    <h2>💰 ส่วนแบ่งเจ้าของสวน</h2>
+    <h2 class="page-title">
+💰 ส่วนแบ่งเจ้าของสวน
+</h2>
 
-    <div class="card p-3 mt-3">
+    <div class="search-card">
 
         <div class="mb-3">
 
@@ -70,60 +72,28 @@ async function loadFarmDropdown() {
     const farms =
         await response.json();
 
-    let html = "";
-
-    farms.forEach(farm => {
-
-        html += `
-            <option value="${farm._id}">
-                ${farm.name}
-            </option>
-        `;
-
-    });
-
-    document.getElementById(
-        "farmId"
-    ).innerHTML = html;
-
-}
-
-async function loadShare() {
-
-    const farmId =
-        document.getElementById(
-            "farmId"
-        ).value;
-
-    const round =
-        document.getElementById(
-            "round"
-        ).value;
-
-    const response =
-        await fetch(
-            `https://palm-app-jt0i.onrender.com/owner-share/${farmId}/${round}`
-        );
-
-    const data =
-        await response.json();
-
     let html = `
 
-<h3 class="mb-4">
+<div class="round-title">
+
     📊 งวดที่ ${data.round}
-</h3>
+
+</div>
 
 <div class="summary-grid">
 
     <div class="stat-card">
 
         <div class="stat-title">
+
             รายรับรวม
+
         </div>
 
-        <div class="stat-value">
-            ${data.totalIncome.toLocaleString()}
+        <div class="stat-value income">
+
+            ฿${data.totalIncome.toLocaleString()}
+
         </div>
 
     </div>
@@ -131,11 +101,15 @@ async function loadShare() {
     <div class="stat-card">
 
         <div class="stat-title">
+
             รายจ่ายรวม
+
         </div>
 
-        <div class="stat-value">
-            ${data.totalExpense.toLocaleString()}
+        <div class="stat-value expense">
+
+            ฿${data.totalExpense.toLocaleString()}
+
         </div>
 
     </div>
@@ -143,11 +117,15 @@ async function loadShare() {
     <div class="stat-card">
 
         <div class="stat-title">
+
             กำไรสุทธิ
+
         </div>
 
-        <div class="stat-value">
-            ${data.profit.toLocaleString()}
+        <div class="stat-value profit">
+
+            ฿${data.profit.toLocaleString()}
+
         </div>
 
     </div>
@@ -163,17 +141,21 @@ async function loadShare() {
 
 <div class="owner-card">
 
-    <h5>
-        👤 ${owner.name}
-    </h5>
+    <div class="owner-name">
 
-    <p>
-        สัดส่วนถือหุ้น ${owner.percent}%
-    </p>
+        👤 ${owner.name}
+
+    </div>
+
+    <div class="owner-percent">
+
+        ถือหุ้น ${owner.percent}%
+
+    </div>
 
     <div class="share-value">
 
-        ${owner.share.toLocaleString()} บาท
+        ฿${owner.share.toLocaleString()}
 
     </div>
 
