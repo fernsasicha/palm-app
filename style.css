@@ -1,54 +1,128 @@
+:root{
+    --green:#10b981;
+    --red:#ff4f77;
+    --blue:#4f7cff;
+    --orange:#f5a524;
+
+    --bg:#f5f7fb;
+    --card:#ffffff;
+}
+
 body{
-    background:#f6f7fb;
+    background:var(--bg);
+    font-family:'Segoe UI',sans-serif;
 }
 
-.dashboard-header{
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+    width:260px;
     background:#fff;
-    padding:24px;
-    border-radius:24px;
-    margin-bottom:20px;
-    box-shadow:0 4px 20px rgba(0,0,0,.05);
+    padding:30px 20px;
+    box-shadow:0 0 20px rgba(0,0,0,.05);
 }
 
-.menu-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-    margin-top:20px;
-}
-
-.menu-card{
-    text-decoration:none;
-    background:#fff;
-    border-radius:24px;
-    padding:20px;
-    text-align:center;
-    color:#333;
-    box-shadow:0 4px 20px rgba(0,0,0,.05);
-    transition:.2s;
-}
-
-.menu-card:hover{
-    transform:translateY(-3px);
-}
-
-.menu-icon{
+.logo{
     font-size:32px;
+    font-weight:700;
+    margin-bottom:30px;
+}
+
+.menu-item{
+    display:block;
+    text-decoration:none;
+    color:#333;
+    padding:14px 16px;
+    border-radius:14px;
     margin-bottom:10px;
 }
 
-.summary-card{
-    border:none;
-    border-radius:24px;
+.menu-item:hover{
+    background:#f3f4f6;
+}
+
+.content{
+    flex:1;
+    padding:40px;
+}
+
+.page-title{
+    font-size:42px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.subtitle{
+    color:#888;
+    margin-bottom:30px;
+}
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.stat-card{
+    color:white;
+    border-radius:28px;
+    padding:28px;
+}
+
+.green{
+    background:linear-gradient(135deg,#00c980,#10b981);
+}
+
+.red{
+    background:linear-gradient(135deg,#ff5e88,#ff4470);
+}
+
+.blue{
+    background:linear-gradient(135deg,#5a8cff,#4f7cff);
+}
+
+.orange{
+    background:linear-gradient(135deg,#ffbf4d,#f59e0b);
+}
+
+.card-title{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card-value{
+    font-size:42px;
+    font-weight:700;
+    margin-top:15px;
+}
+
+.welcome-box{
+    margin-top:30px;
+    background:white;
+    border-radius:25px;
+    padding:25px;
     box-shadow:0 4px 20px rgba(0,0,0,.05);
 }
 
-.logout-card{
-    width:100%;
-    border:none;
-    border-radius:20px;
-    padding:15px;
-    margin-top:20px;
-    background:#111;
-    color:white;
+@media(max-width:900px){
+
+    .layout{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .content{
+        padding:20px;
+    }
+
+    .page-title{
+        font-size:32px;
+    }
+
 }
