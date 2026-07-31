@@ -52,7 +52,34 @@ async function loadHistory() {
     const data =
         await response.json();
 
-    let html = "";
+    const totalShare =
+        data.reduce(
+            (sum, item) =>
+                sum + item.share,
+            0
+        );
+
+    let html = `
+
+    <div class="card p-4 mt-3 mb-4">
+
+        <h4>
+            💰 ส่วนแบ่งสะสม
+        </h4>
+
+        <h1
+            style="
+            color:#10b981;
+            font-weight:700;
+            ">
+
+            ฿${totalShare.toLocaleString()}
+
+        </h1>
+
+    </div>
+
+    `;
 
     data.forEach(item => {
 
@@ -61,25 +88,27 @@ async function loadHistory() {
         <div class="card p-3 mt-3">
 
             <h4>
-
                 งวดที่ ${item.round}
-
             </h4>
 
             <p>
-
                 กำไรสุทธิ
-
                 ฿${item.profit.toLocaleString()}
-
             </p>
 
-            <h3
-                style="
-                color:#10b981;
-                ">
+            <h3 style="
+                color:${item.share >= 0
+                    ? '#10b981'
+                    : '#ef4444'
+                };
+            ">
 
-                ฿${item.share.toLocaleString()}
+                ${
+                    item.share >= 0
+                    ? '฿' + item.share.toLocaleString()
+                    : 'ขาดทุน ฿' +
+                      Math.abs(item.share).toLocaleString()
+                }
 
             </h3>
 
@@ -89,11 +118,9 @@ async function loadHistory() {
 
     });
 
-    document
-        .getElementById(
-            "history"
-        ).innerHTML =
-            html;
+    document.getElementById(
+        "history"
+    ).innerHTML = html;
 
 }
 
