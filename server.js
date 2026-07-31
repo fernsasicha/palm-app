@@ -60,7 +60,6 @@ const Expense = mongoose.model("Expense", {
   type: String,
   date: Date,
   round: Number,
-  item: String,
   quantity: Number,
   price: Number,
   total: Number,
@@ -163,7 +162,6 @@ app.post("/expense", async (req, res) => {
   type,
   date,
   round,
-  item,
   quantity,
   price,
   receiptImage
@@ -176,7 +174,6 @@ app.post("/expense", async (req, res) => {
   type,
   date,
   round,
-  item,
   quantity,
   price,
   total,

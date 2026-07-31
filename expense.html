@@ -51,11 +51,6 @@
         </div>
 
         <div class="mb-3">
-            <label>รายการ</label>
-            <input type="text" id="item" class="form-control">
-        </div>
-
-        <div class="mb-3">
             <label>จำนวน</label>
             <input type="number" id="quantity" class="form-control">
         </div>
@@ -168,9 +163,9 @@ async function saveExpense() {
             document.getElementById("round").value
         ),
 
-    weight:
+    quantity:
         Number(
-            document.getElementById("weight").value
+            document.getElementById("quantity").value
         ),
 
     price:
@@ -180,6 +175,7 @@ async function saveExpense() {
 
     receiptImage:
         imageUrl
+
 };
 
         const response =
