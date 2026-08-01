@@ -1,5 +1,5 @@
 <h2>
-🔒 ปิดงวด
+🔒 ขอปิดงวด
 </h2>
 
 <select id="farmId"></select>
@@ -12,7 +12,7 @@
 <button
     onclick="closeRound()">
 
-    ปิดงวด
+    ส่งคำขอปิดงวด
 
 </button>
 
@@ -58,9 +58,14 @@ async function closeRound() {
             "round"
         ).value;
 
+    const ownerId =
+        localStorage.getItem(
+            "ownerId"
+        );
+
     const response =
         await fetch(
-            "https://palm-app-jt0i.onrender.com/close-round",
+            "https://palm-app-jt0i.onrender.com/close-round-request",
             {
                 method: "POST",
 
@@ -70,8 +75,11 @@ async function closeRound() {
                 },
 
                 body: JSON.stringify({
+
                     farmId,
-                    round
+                    round,
+                    ownerId
+
                 })
             }
         );
@@ -81,10 +89,11 @@ async function closeRound() {
 
     alert(
         data.message ||
-        "ปิดงวดสำเร็จ ✅"
+        "ส่งคำขอปิดงวดสำเร็จ ✅"
     );
 
 }
+
 
 loadFarmDropdown();
 
