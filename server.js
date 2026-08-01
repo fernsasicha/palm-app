@@ -1538,10 +1538,7 @@ app.post(
 
             return res.status(404)
             .json({
-
-                message:
-                    "ไม่พบคำขอ"
-
+                message: "ไม่พบคำขอ"
             });
 
         }
@@ -1575,35 +1572,37 @@ app.post(
                 "closed";
 
             const exists =
-    await ClosedRound.findOne({
+                await ClosedRound.findOne({
 
-        farmId:
-            request.farmId,
+                    farmId:
+                        request.farmId,
 
-        round:
-            request.round
+                    round:
+                        request.round
 
-    });
+                });
 
-if (!exists) {
+            if (!exists) {
 
-    const closedRound =
-        new ClosedRound({
+                const closedRound =
+                    new ClosedRound({
 
-            farmId:
-                request.farmId,
+                        farmId:
+                            request.farmId,
 
-            round:
-                request.round,
+                        round:
+                            request.round,
 
-            closedDate:
-                new Date()
+                        closedDate:
+                            new Date()
 
-        });
+                    });
 
-    await closedRound.save();
+                await closedRound.save();
 
-}
+            }
+
+        }
 
         await request.save();
 
