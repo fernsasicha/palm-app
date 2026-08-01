@@ -191,3 +191,18 @@ body{
     margin-top:10px;
     font-size:18px;
 }
+
+
+.confirm-card {
+    background: #fff;
+    border-left: 5px solid #f59e0b;
+    border-radius: 12px;
+}
+
+.confirm-card h4 {
+    margin-bottom: 10px;
+}
+
+.confirm-card p {
+    margin: 4px 0;
+}
