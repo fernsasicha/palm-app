@@ -1433,6 +1433,7 @@ app.get(
 
 
 // ✅ API ขอปิดงวด
+// ✅ API ขอปิดงวด
 
 app.post(
     "/close-round-request",
@@ -1446,9 +1447,11 @@ app.post(
 
         const exists =
             await CloseRoundRequest.findOne({
+
                 farmId,
                 round: Number(round),
                 status: "pending"
+
             });
 
         if (exists) {
@@ -1481,7 +1484,6 @@ app.post(
                     new Date()
 
             });
-}
 
         await request.save();
 
@@ -1491,7 +1493,9 @@ app.post(
 
         });
 
-});
+    }
+
+);
 
 
 // ✅ API ดึงรายการรอยืนยัน
