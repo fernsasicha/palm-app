@@ -136,16 +136,13 @@ const CloseRoundRequest = mongoose.model(
 
 
 
-
+// ✅ middleware ต้องอยู่บน
 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-// ✅ middleware ต้องอยู่บน
-app.use(express.json());
 
 // ✅ route แรก
 app.get("/", (req, res) => {
@@ -169,7 +166,7 @@ const total = weight * price;
 const closed =
     await ClosedRound.findOne({
         farmId,
-        round
+        round: Number(round)
     });
 
 if (closed) {
@@ -191,8 +188,6 @@ if (closed) {
   total,
   receiptImage
 });
-
-}
 
 
   await newIncome.save();
@@ -230,12 +225,9 @@ app.post("/expense", async (req, res) => {
 
 
 const closed =
-    await ClosedRound.findOne({
-
+    await ClosedRound.findOne({                              
         farmId,
-
-        round
-
+        round: Number(round)
     });
 
 if (closed) {
@@ -1360,6 +1352,7 @@ app.get(
 });
 
 
+// Internal API
 // ✅ API ปิดงวด
 app.post(
     "/close-round",
@@ -1436,6 +1429,7 @@ app.get(
 
 });
 
+// ใช้เมื่อยืนยันครบทุกคน
 
 
 // ✅ API ขอปิดงวด
@@ -1453,7 +1447,7 @@ app.post(
         const exists =
             await CloseRoundRequest.findOne({
                 farmId,
-                round,
+                round: Number(round),
                 status: "pending"
             });
 
@@ -1461,7 +1455,7 @@ app.post(
 
             return res.json({
                 message:
-                "มีคำขออยู่แล้ว"
+                    "มีคำขอปิดงวดอยู่แล้ว"
             });
 
         }
@@ -1472,8 +1466,7 @@ app.post(
                 farmId,
 
                 round:
-
-                Number(round),
+                    Number(round),
 
                 requestedBy:
                     ownerId,
@@ -1492,7 +1485,9 @@ app.post(
         await request.save();
 
         res.json({
+
             success: true
+
         });
 
 });
@@ -1509,10 +1504,15 @@ app.get(
 
         const requests =
             await CloseRoundRequest.find({
-                status: "pending"
+                status: "pending",
+                approvals: {
+                    $ne: ownerId
+                }
             });
 
-        res.json(requests);
+        res.json(
+            requests
+        );
 
 });
 
@@ -1537,8 +1537,10 @@ app.post(
 
             return res.status(404)
             .json({
+
                 message:
-                "ไม่พบคำขอ"
+                    "ไม่พบคำขอ"
+
             });
 
         }
@@ -1559,7 +1561,7 @@ app.post(
             await FarmOwner.find({
 
                 farmId:
-                request.farmId
+                    request.farmId
 
             });
 
@@ -1571,28 +1573,43 @@ app.post(
             request.status =
                 "closed";
 
-            const closedRound =
-                new ClosedRound({
+            const exists =
+    await ClosedRound.findOne({
 
-                    farmId:
-                        request.farmId,
+        farmId:
+            request.farmId,
 
-                    round:
-                        request.round,
+        round:
+            request.round
 
-                    closedDate:
-                        new Date()
+    });
 
-                });
+if (!exists) {
 
-            await closedRound.save();
+    const closedRound =
+        new ClosedRound({
 
-        }
+            farmId:
+                request.farmId,
+
+            round:
+                request.round,
+
+            closedDate:
+                new Date()
+
+        });
+
+    await closedRound.save();
+
+}
 
         await request.save();
 
         res.json({
+
             success: true
+
         });
 
 });
