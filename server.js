@@ -116,13 +116,32 @@ const ClosedRound = mongoose.model(
     }
 );
 
+// ✅  Closed Round Request
+
+const CloseRoundRequest = mongoose.model(
+    "CloseRoundRequest",
+    {
+        farmId: String,
+        round: Number,
+
+        requestedBy: String,
+
+        approvals: [String],
+
+        status: String,
+
+        createdDate: Date
+    }
+);
+
+
+
 
 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 
 
 // ✅ middleware ต้องอยู่บน
@@ -1416,6 +1435,172 @@ app.get(
         });
 
 });
+
+
+
+// ✅ API ขอปิดงวด
+
+app.post(
+    "/close-round-request",
+    async (req, res) => {
+
+        const {
+            farmId,
+            round,
+            ownerId
+        } = req.body;
+
+        const exists =
+            await CloseRoundRequest.findOne({
+                farmId,
+                round,
+                status: "pending"
+            });
+
+        if (exists) {
+
+            return res.json({
+                message:
+                "มีคำขออยู่แล้ว"
+            });
+
+        }
+
+        const request =
+            new CloseRoundRequest({
+
+                farmId,
+
+                round:
+
+                Number(round),
+
+                requestedBy:
+                    ownerId,
+
+                approvals:
+                    [ownerId],
+
+                status:
+                    "pending",
+
+                createdDate:
+                    new Date()
+
+            });
+
+        await request.save();
+
+        res.json({
+            success: true
+        });
+
+});
+
+
+// ✅ API ดึงรายการรอยืนยัน
+
+app.get(
+    "/pending-close-round/:ownerId",
+    async (req, res) => {
+
+        const ownerId =
+            req.params.ownerId;
+
+        const requests =
+            await CloseRoundRequest.find({
+                status: "pending"
+            });
+
+        res.json(requests);
+
+});
+
+
+// ✅ API ยืนยันการปิดงวด
+
+app.post(
+    "/confirm-close-round",
+    async (req, res) => {
+
+        const {
+            requestId,
+            ownerId
+        } = req.body;
+
+        const request =
+            await CloseRoundRequest.findById(
+                requestId
+            );
+
+        if (!request) {
+
+            return res.status(404)
+            .json({
+                message:
+                "ไม่พบคำขอ"
+            });
+
+        }
+
+        if (
+            !request.approvals.includes(
+                ownerId
+            )
+        ) {
+
+            request.approvals.push(
+                ownerId
+            );
+
+        }
+
+        const owners =
+            await FarmOwner.find({
+
+                farmId:
+                request.farmId
+
+            });
+
+        if (
+            request.approvals.length >=
+            owners.length
+        ) {
+
+            request.status =
+                "closed";
+
+            const closedRound =
+                new ClosedRound({
+
+                    farmId:
+                        request.farmId,
+
+                    round:
+                        request.round,
+
+                    closedDate:
+                        new Date()
+
+                });
+
+            await closedRound.save();
+
+        }
+
+        await request.save();
+
+        res.json({
+            success: true
+        });
+
+});
+
+
+
+
+
 
 
 

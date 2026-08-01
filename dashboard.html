@@ -108,6 +108,8 @@
 
         </div>
 
+<div id="pendingCloseRound"></div>
+
         <div class="card-grid">
 
             <div class="stat-card green">
@@ -348,7 +350,116 @@ async function loadLatestShare() {
 
 }
 
+async function loadPendingCloseRound() {
+
+    const ownerId =
+        localStorage.getItem(
+            "ownerId"
+        );
+
+    if (!ownerId) {
+        return;
+    }
+
+    const response =
+        await fetch(
+            `https://palm-app-jt0i.onrender.com/pending-close-round/${ownerId}`
+        );
+
+    const data =
+        await response.json();
+
+    let html = "";
+
+    data.forEach(item => {
+
+        html += `
+
+        <div class="card p-3 mt-3 border-warning">
+
+            <h4>
+                🔒 รอยืนยันการปิดงวด
+            </h4>
+
+            <p>
+                งวดที่ ${item.round}
+            </p>
+
+            <p>
+                ยืนยันแล้ว
+                ${item.approvals.length}
+                คน
+            </p>
+
+            <button
+                class="btn btn-success"
+                onclick="confirmCloseRound('${item._id}')">
+
+                ✅ ยืนยัน
+
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById(
+        "pendingCloseRound"
+    ).innerHTML = html;
+
+}
+
+
+
+
+async function confirmCloseRound(
+    requestId
+) {
+
+    const ownerId =
+        localStorage.getItem(
+            "ownerId"
+        );
+
+    const response =
+        await fetch(
+            "https://palm-app-jt0i.onrender.com/confirm-close-round",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    requestId,
+                    ownerId
+
+                })
+
+            }
+        );
+
+    const data =
+        await response.json();
+
+    alert(
+        "ยืนยันสำเร็จ ✅"
+    );
+
+    loadPendingCloseRound();
+
+}
+
+
+
+
 loadLatestShare();
+loadPendingCloseRound();
 
     </script>
 
