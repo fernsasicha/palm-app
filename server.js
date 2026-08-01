@@ -1433,7 +1433,6 @@ app.get(
 
 
 // ✅ API ขอปิดงวด
-// ✅ API ขอปิดงวด
 
 app.post(
     "/close-round-request",
@@ -1515,8 +1514,46 @@ app.get(
                 }
             });
 
+        const result = [];
+
+        for (const item of requests) {
+
+            const farm =
+                await Farm.findById(
+                    item.farmId
+                );
+
+            const requester =
+                await Owner.findById(
+                    item.requestedBy
+                );
+
+            const owners =
+                await FarmOwner.find({
+                    farmId: item.farmId
+                });
+
+            result.push({
+
+                ...item.toObject(),
+
+                farmName:
+                    farm?.name ||
+                    "ไม่พบชื่อสวน",
+
+                requestedByName:
+                    requester?.name ||
+                    "ไม่พบชื่อ",
+
+                totalOwners:
+                    owners.length
+
+            });
+
+        }
+
         res.json(
-            requests
+            result
         );
 
 });
