@@ -140,29 +140,27 @@ body{
 }
 
 @media (max-width: 900px){
-
-    .mobile-header{
-        display:flex;
-        align-items:center;
-        gap:15px;
-        background:white;
-        padding:15px 20px;
-        box-shadow:0 2px 10px rgba(0,0,0,.05);
-    }
-
-    .sidebar{
-        position:fixed;
-        left:-280px;
-        top:0;
-        width:260px;
-        height:100%;
-        z-index:999;
-        transition:.3s;
-    }
-
-    .sidebar.active{
-        left:0;
-    }
+.mobile-header{
+display:flex;
+align-items:center;
+gap:15px;
+background:white;
+padding:15px 20px;
+box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+.sidebar{
+position:fixed;
+left:-280px;
+top:0;
+width:260px;
+height:100%;
+z-index:999;
+transition:.3s;
+}
+.sidebar.active{
+left:0;
+}
+} /* ← ปิด media query ตรงนี้ */
 
     .content{
         width:100%;
@@ -275,24 +273,20 @@ body{
 }
 
 
-.sidebar-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
+.sidebar-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
-
-.close-menu {
-
-    background: none;
-
-    border: none;
-
-    font-size: 24px;
-
-    cursor: pointer;
-
+.close-menu{
+background:none;
+border:none;
+font-size:24px;
+cursor:pointer;
+display:none;
+}
+@media (max-width:900px){
+.close-menu{
+display:block;
+}
 }
