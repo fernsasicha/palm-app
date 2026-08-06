@@ -193,15 +193,21 @@ body{
 }
 
 
+#pendingCloseRound {
+    margin-bottom: 30px;
+}
+
 .confirm-card {
     background: #fff;
     border-left: 5px solid #f59e0b;
     border-radius: 12px;
+    margin-bottom: 15px;
 }
 
 .confirm-card h4 {
     margin-bottom: 12px;
     font-size: 18px;
+    font-weight: 700;
 }
 
 .confirm-card p {
