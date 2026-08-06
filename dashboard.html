@@ -390,7 +390,7 @@ async function loadPendingCloseRound() {
     </p>
 
     <p class="confirm-status">
-        🤝 ยืนยันแล้ว
+        👥 ยืนยันแล้ว
         ${item.approvals.length}/${item.totalOwners}
         คน
     </p>
@@ -398,16 +398,16 @@ async function loadPendingCloseRound() {
     <div class="confirm-buttons">
 
     <button
-        class="btn btn-danger"
-        onclick="rejectCloseRound('${item._id}')">
+    class="reject-btn"
+    onclick="rejectCloseRound('${item._id}')">
 
         ❌ ปฏิเสธ
 
     </button>
 
     <button
-        class="btn btn-success"
-        onclick="confirmCloseRound('${item._id}')">
+    class="confirm-btn"
+    onclick="confirmCloseRound('${item._id}')">
 
         ✅ ยืนยัน
 

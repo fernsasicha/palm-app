@@ -223,3 +223,23 @@ body{
 .confirm-buttons button {
     flex: 1;
 }
+
+.reject-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.confirm-btn {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
