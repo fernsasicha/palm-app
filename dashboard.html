@@ -16,6 +16,8 @@
 
 <body>
 
+<div id="menuOverlay" class="menu-overlay"></div>
+
 <div class="mobile-header">
 
     <button
@@ -30,14 +32,21 @@
 
 </div>
 
-
 <div class="layout">
 
-    <div class="sidebar">
+    <div class="sidebar-header">
 
-        <div class="logo">
-            🌴 Palm App
-        </div>
+    <h2>🌴 Palm App</h2>
+
+    <button
+        class="close-menu"
+        onclick="closeMenu()">
+
+        ✕
+
+    </button>
+
+</div>
 
         <a href="dashboard.html" class="menu-item">
             📊 ภาพรวม
@@ -310,6 +319,11 @@ function toggleMenu() {
         .classList
         .toggle("active");
 
+    document
+        .getElementById("menuOverlay")
+        .classList
+        .toggle("show");
+
 }
 
 
@@ -510,6 +524,43 @@ async function rejectCloseRound(
     loadPendingCloseRound();
 
 }
+
+
+
+document
+    .getElementById("menuOverlay")
+    .addEventListener(
+        "click",
+        function () {
+
+            document
+                .querySelector(".sidebar")
+                .classList
+                .remove("active");
+
+            document
+                .getElementById("menuOverlay")
+                .classList
+                .remove("show");
+
+        }
+    );
+
+function closeMenu() {
+
+    document
+        .querySelector(".sidebar")
+        .classList
+        .remove("active");
+
+    document
+        .getElementById("menuOverlay")
+        .classList
+        .remove("show");
+
+}
+
+
 
 
 
