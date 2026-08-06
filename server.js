@@ -130,6 +130,8 @@ const CloseRoundRequest = mongoose.model(
 
         status: String,
 
+	rejectedBy: String,
+
         createdDate: Date
     }
 );
@@ -1656,9 +1658,40 @@ app.post(
 });
 
 
+// ✅ API ปฏิเสธ
 
+app.post(
+    "/reject-close-round",
+    async (req, res) => {
 
+        const {
+            requestId,
+            ownerId
+        } = req.body;
 
+        const request =
+            await CloseRoundRequest.findById(
+                requestId
+            );
+
+        if (!request) {
+
+            return res.status(404).json({
+                message: "ไม่พบคำขอ"
+            });
+
+        }
+
+        request.status = "rejected";
+        request.rejectedBy = ownerId;
+
+        await request.save();
+
+        res.json({
+            success: true
+        });
+
+});
 
 
 
