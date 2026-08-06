@@ -380,20 +380,16 @@ async function loadPendingCloseRound() {
         🔒 รอยืนยันการปิดงวด
     </h4>
 
-    <p style="margin:6px 0;">
+    <p>
         🌴 ${item.farmName || "สวนปาล์ม"}
     </p>
 
-    <p style="margin:6px 0;">
+    <p>
         📅 งวดที่ ${item.round}
         • เสนอโดย ${item.requestedByName || "-"}
     </p>
 
-    <p style="
-        margin:10px 0;
-        color:#d97706;
-        font-weight:bold;
-    ">
+    <p class="confirm-status">
         🟡 ยืนยันแล้ว
         ${item.approvals.length}/${item.totalOwners}
         คน
@@ -407,7 +403,7 @@ async function loadPendingCloseRound() {
 
     </button>
 
-</div>
+</div> 
 
 `;
 
